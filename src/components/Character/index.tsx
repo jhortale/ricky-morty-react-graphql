@@ -5,16 +5,23 @@ const GET_CHARACTERS = gql`
   query {
     characters {
       results {
-        id,
-        name, 
-        gender,
-        image,
+        id
+        name
+        gender
+        image
       }
-    } 
+    }
   }
 `;
 
-const Characters: React.FC = () => {
+interface Character {
+  id: string;
+  name: string;
+  gender: string;
+  image: string;
+}
+
+const CharacterProfile: React.FC = () => {
   const { loading, error, data } = useQuery(GET_CHARACTERS);
 
   if (loading) {
@@ -26,7 +33,7 @@ const Characters: React.FC = () => {
     return <div>Error!</div>;
   }
 
-  return (<div>{JSON.stringify(data)}</div>)
-}
+  return <h1>Single profile</h1>;
+};
 
-export default Characters
+export default CharacterProfile;
