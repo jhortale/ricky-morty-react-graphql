@@ -35,7 +35,9 @@ const CharacterProfile: React.FC<Props> = ({ character }) => {
       </p>
       <p>
         Location:
-        {character.location.name}
+        <Link to={`/location/${character.location.id}`}>
+          {character.location.name}
+        </Link>
       </p>
     </div>
   );

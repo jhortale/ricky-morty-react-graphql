@@ -4,6 +4,7 @@ import { ApolloProvider } from '@apollo/client';
 import createApolloClient from './services/api';
 import Characters from './pages/Characters';
 import Character from './pages/Character';
+import Location from './pages/Location';
 
 const App: React.FC = () => {
   const client = createApolloClient();
@@ -12,6 +13,7 @@ const App: React.FC = () => {
       <ApolloProvider client={client}>
         <Route exact path="/" component={Characters} />
         <Route exact path="/:id" component={Character} />
+        <Route exact path="/location/:id" component={Location} />
       </ApolloProvider>
     </Router>
   );
