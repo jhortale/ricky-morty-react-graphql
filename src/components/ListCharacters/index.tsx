@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { List, Avatar } from 'antd';
+import { Link } from 'react-router-dom';
 import Filters from './Filters';
 
 export interface Character {
@@ -67,9 +68,9 @@ const ListCharacters: React.FC<Props> = ({ characters }) => {
             <List.Item.Meta
               avatar={<Avatar src={item.image} />}
               title={
-                <a href="https://ant.design">
+                <Link to={`/${item.id}`}>
                   {item.name} - {item.status} - {item.gender}
-                </a>
+                </Link>
               }
             />
           </List.Item>
