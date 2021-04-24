@@ -1,39 +1,44 @@
 import * as React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { Link } from 'react-router-dom';
+import { Character } from '../ListCharacters';
 
-const GET_CHARACTERS = gql`
-  query {
-    characters {
-      results {
-        id
-        name
-        gender
-        image
-      }
-    }
-  }
-`;
-
-interface Character {
-  id: string;
-  name: string;
-  gender: string;
-  image: string;
+interface CharacterProfile extends Character {
+  episode: {
+    id: number;
+    name: string;
+  }[];
+  location: {
+    id: number;
+    name: string;
+  };
 }
 
-const CharacterProfile: React.FC = () => {
-  const { loading, error, data } = useQuery(GET_CHARACTERS);
+interface Props {
+  character: CharacterProfile;
+}
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    console.error(error);
-    return <div>Error!</div>;
-  }
-
-  return <h1>Single profile</h1>;
+const CharacterProfile: React.FC<Props> = ({ character }) => {
+  return (
+    <div>
+      <div>
+        <Link to="/">back</Link>
+      </div>
+      <h1>{character.name}</h1>
+      <p>Status: {character.status}</p>
+      <p>
+        Episodes:
+        <ul>
+          {character.episode.map(episode => (
+            <li key={episode.id}>{episode.name}</li>
+          ))}
+        </ul>
+      </p>
+      <p>
+        Location:
+        {character.location.name}
+      </p>
+    </div>
+  );
 };
 
 export default CharacterProfile;
