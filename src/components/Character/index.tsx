@@ -1,17 +1,16 @@
 import * as React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { List, Avatar } from 'antd';
 
 const GET_CHARACTERS = gql`
   query {
     characters {
       results {
-        id,
-        name, 
-        gender,
-        image,
+        id
+        name
+        gender
+        image
       }
-    } 
+    }
   }
 `;
 
@@ -22,7 +21,7 @@ interface Character {
   image: string;
 }
 
-const Character: React.FC = () => {
+const CharacterProfile: React.FC = () => {
   const { loading, error, data } = useQuery(GET_CHARACTERS);
 
   if (loading) {
@@ -34,11 +33,7 @@ const Character: React.FC = () => {
     return <div>Error!</div>;
   }
 
-  const characters = data.characters.results as Character[];
+  return <h1>Single profile</h1>;
+};
 
-  return (
-    <h1>Single profile</h1>
-  )
-}
-
-export default Character
+export default CharacterProfile;
