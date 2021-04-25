@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { Layout } from 'antd';
+import { Layout, Typography } from 'antd';
 
-const { Header, Footer, Content } = Layout;
+const { Title } = Typography;
+
+const { Header, Content } = Layout;
 
 const LayoutContainer: React.FC = ({ children }) => {
   return (
     <Layout>
-      <Header>Header</Header>
+      <Header style={{ padding: 10 }}>
+        <Title style={{ color: '#fff' }}>Rick & Morty Api</Title>
+      </Header>
       <Content>{children}</Content>
-      <Footer>Footer</Footer>
     </Layout>
   );
 };

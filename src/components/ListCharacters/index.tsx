@@ -43,6 +43,7 @@ const ListCharacters: React.FC<Props> = ({
       />
       <List
         itemLayout="horizontal"
+        size="small"
         dataSource={characters}
         renderItem={item => (
           <List.Item>

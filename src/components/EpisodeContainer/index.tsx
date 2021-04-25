@@ -1,5 +1,6 @@
+import { List, PageHeader } from 'antd';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 interface Episode {
   id: number;
@@ -15,23 +16,25 @@ interface Props {
 }
 
 const LocationContainer: React.FC<Props> = ({ episode }) => {
+  const history = useHistory();
   return (
-    <div>
-      <div>
-        <Link to="/">back</Link>
-      </div>
-      <h1>{episode.name}</h1>
-      <p>
-        Residents:
-        <ul>
-          {episode.characters.map(character => (
-            <li key={character.id}>
-              <Link to={`/character/${character.id}`}>{character.name}</Link>
-            </li>
-          ))}
-        </ul>
-      </p>
-    </div>
+    <>
+      <PageHeader
+        title={`Episode: ${episode.name}`}
+        onBack={() => history.goBack()}
+      />
+      <List
+        style={{ padding: '15px' }}
+        size="small"
+        dataSource={episode.characters}
+        header={<strong>Characters</strong>}
+        renderItem={item => (
+          <List.Item>
+            <Link to={`/character/${item.id}`}>{item.name}</Link>
+          </List.Item>
+        )}
+      />
+    </>
   );
 };
 

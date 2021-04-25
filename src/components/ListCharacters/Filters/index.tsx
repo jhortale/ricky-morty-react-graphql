@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { Tag } from 'antd';
+import { Space, Tag, Typography } from 'antd';
+
+const { Paragraph, Title, Text } = Typography;
 
 const { CheckableTag } = Tag;
 
 const gender = ['Male', 'Female', 'Unknown'];
 
-const status = ['Active', 'Dead', 'Unknown'];
+const status = ['Alive', 'Dead', 'Unknown'];
 
 interface Props {
   genderFilter: string | null;
@@ -21,9 +23,11 @@ const Filters: React.FC<Props> = ({
   toggleGenderFilters,
 }) => {
   return (
-    <div>
-      <h3>Filter by:</h3>
-      <div>
+    <Space size="small" direction="vertical" style={{ padding: '15px' }}>
+      <Text>
+        <strong>Filter by:</strong>
+      </Text>
+      <Text>
         Gender:
         {gender.map(value => (
           <CheckableTag
@@ -34,8 +38,8 @@ const Filters: React.FC<Props> = ({
             {value}
           </CheckableTag>
         ))}
-      </div>
-      <div>
+      </Text>
+      <Text>
         Status:
         {status.map(value => (
           <CheckableTag
@@ -46,8 +50,8 @@ const Filters: React.FC<Props> = ({
             {value}
           </CheckableTag>
         ))}
-      </div>
-    </div>
+      </Text>
+    </Space>
   );
 };
 
