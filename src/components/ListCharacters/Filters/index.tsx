@@ -1,5 +1,8 @@
 import * as React from 'react';
+import { Tag } from 'antd';
 import { Character } from '..';
+
+const { CheckableTag } = Tag;
 
 interface Props {
   characters: Character[];
@@ -29,27 +32,25 @@ const Filters: React.FC<Props> = ({
       <div>
         Gender:
         {genderList.map(value => (
-          <span
+          <CheckableTag
             key={value}
-            style={{ fontWeight: genderFilter === value ? 'bold' : 'normal' }}
-            onKeyDown={() => toggleGenderFilters(value)}
+            checked={genderFilter === value}
             onClick={() => toggleGenderFilters(value)}
           >
             {value}
-          </span>
+          </CheckableTag>
         ))}
       </div>
       <div>
         Status:
         {statusList.map(value => (
-          <span
+          <CheckableTag
             key={value}
-            style={{ fontWeight: statusFilter === value ? 'bold' : 'normal' }}
-            onKeyDown={() => toggleStatusFilters(value)}
+            checked={statusFilter === value}
             onClick={() => toggleStatusFilters(value)}
           >
             {value}
-          </span>
+          </CheckableTag>
         ))}
       </div>
     </div>
