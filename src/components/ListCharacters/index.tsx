@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { List, Avatar } from 'antd';
+import { List, Avatar, Pagination, PageHeader } from 'antd';
+
 import { Link } from 'react-router-dom';
-import Pagination from 'react-paginate';
+
 import Filters from './Filters';
 
 export interface Character {
@@ -15,10 +16,16 @@ export interface Character {
 interface Props {
   characters: Character[];
   pages: number;
+  page: number;
   setPage(page: number): void;
 }
 
-const ListCharacters: React.FC<Props> = ({ characters, pages, setPage }) => {
+const ListCharacters: React.FC<Props> = ({
+  characters,
+  pages,
+  page,
+  setPage,
+}) => {
   const [filteredData, setFilteredData] = React.useState<Character[]>([]);
   const [genderFilter, setGenderFilter] = React.useState<string | null>(null);
   const [statusFilter, setStatusFilter] = React.useState<string | null>(null);
@@ -56,18 +63,13 @@ const ListCharacters: React.FC<Props> = ({ characters, pages, setPage }) => {
 
   return (
     <>
+      <PageHeader className="site-page-header" title="Characters" />
       <Filters
         characters={characters}
         genderFilter={genderFilter}
         statusFilter={statusFilter}
         toggleGenderFilters={toggleGenderFilters}
         toggleStatusFilters={toggleStatusFilters}
-      />
-      <Pagination
-        pageCount={pages}
-        pageRangeDisplayed={5}
-        marginPagesDisplayed={5}
-        onPageChange={({ selected }) => setPage(selected)}
       />
       <List
         itemLayout="horizontal"
@@ -84,6 +86,14 @@ const ListCharacters: React.FC<Props> = ({ characters, pages, setPage }) => {
             />
           </List.Item>
         )}
+      />
+      <Pagination
+        current={page}
+        total={pages}
+        onChange={setPage}
+        // defaultPageSize={20}
+        defaultCurrent={1}
+        simple
       />
     </>
   );

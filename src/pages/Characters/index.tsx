@@ -36,6 +36,7 @@ const Characters: React.FC = () => {
     <ListCharacters
       characters={data.characters.results}
       pages={data.characters.info.pages}
+      page={page}
       setPage={setPage}
     />
   );
