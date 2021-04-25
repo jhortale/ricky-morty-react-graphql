@@ -29,7 +29,9 @@ const CharacterProfile: React.FC<Props> = ({ character }) => {
         Episodes:
         <ul>
           {character.episode.map(episode => (
-            <li key={episode.id}>{episode.name}</li>
+            <li key={episode.id}>
+              <Link to={`/episodes/${episode.id}`}>{episode.name}</Link>
+            </li>
           ))}
         </ul>
       </p>
