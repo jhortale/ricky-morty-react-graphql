@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Space, Tag, Typography } from 'antd';
 
-const { Paragraph, Title, Text } = Typography;
+const { Text } = Typography;
 
 const { CheckableTag } = Tag;
 
