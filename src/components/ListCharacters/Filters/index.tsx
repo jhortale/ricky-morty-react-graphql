@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Tag } from 'antd';
-import { Character } from '..';
 
 const { CheckableTag } = Tag;
 
+const gender = ['Male', 'Female', 'Unknown'];
+
+const status = ['Active', 'Dead', 'Unknown'];
+
 interface Props {
-  characters: Character[];
   genderFilter: string | null;
   statusFilter: string | null;
   toggleGenderFilters(value: string): void;
@@ -13,25 +15,17 @@ interface Props {
 }
 
 const Filters: React.FC<Props> = ({
-  characters,
   genderFilter,
   statusFilter,
   toggleStatusFilters,
   toggleGenderFilters,
 }) => {
-  const getList = (key: 'gender' | 'status') => {
-    const rawStatus = characters.map(item => item[key]);
-    return rawStatus.filter((item, index) => rawStatus.indexOf(item) === index);
-  };
-
-  const statusList = getList('status');
-  const genderList = getList('gender');
   return (
     <div>
       <h3>Filter by:</h3>
       <div>
         Gender:
-        {genderList.map(value => (
+        {gender.map(value => (
           <CheckableTag
             key={value}
             checked={genderFilter === value}
@@ -43,7 +37,7 @@ const Filters: React.FC<Props> = ({
       </div>
       <div>
         Status:
-        {statusList.map(value => (
+        {status.map(value => (
           <CheckableTag
             key={value}
             checked={statusFilter === value}
