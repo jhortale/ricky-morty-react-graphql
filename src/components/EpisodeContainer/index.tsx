@@ -26,7 +26,7 @@ const LocationContainer: React.FC<Props> = ({ episode }) => {
         <ul>
           {episode.characters.map(character => (
             <li key={character.id}>
-              <Link to={`/${character.id}`}>{character.name}</Link>
+              <Link to={`/character/${character.id}`}>{character.name}</Link>
             </li>
           ))}
         </ul>

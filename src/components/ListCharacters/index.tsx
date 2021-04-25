@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { List, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
+import Pagination from 'react-paginate';
 import Filters from './Filters';
 
 export interface Character {
@@ -13,9 +14,11 @@ export interface Character {
 
 interface Props {
   characters: Character[];
+  pages: number;
+  setPage(page: number): void;
 }
 
-const ListCharacters: React.FC<Props> = ({ characters }) => {
+const ListCharacters: React.FC<Props> = ({ characters, pages, setPage }) => {
   const [filteredData, setFilteredData] = React.useState<Character[]>([]);
   const [genderFilter, setGenderFilter] = React.useState<string | null>(null);
   const [statusFilter, setStatusFilter] = React.useState<string | null>(null);
@@ -60,6 +63,12 @@ const ListCharacters: React.FC<Props> = ({ characters }) => {
         toggleGenderFilters={toggleGenderFilters}
         toggleStatusFilters={toggleStatusFilters}
       />
+      <Pagination
+        pageCount={pages}
+        pageRangeDisplayed={5}
+        marginPagesDisplayed={5}
+        onPageChange={({ selected }) => setPage(selected)}
+      />
       <List
         itemLayout="horizontal"
         dataSource={filteredData}
@@ -68,7 +77,7 @@ const ListCharacters: React.FC<Props> = ({ characters }) => {
             <List.Item.Meta
               avatar={<Avatar src={item.image} />}
               title={
-                <Link to={`/${item.id}`}>
+                <Link to={`/character/${item.id}`}>
                   {item.name} - {item.status} - {item.gender}
                 </Link>
               }

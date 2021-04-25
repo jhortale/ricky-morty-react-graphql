@@ -3,8 +3,8 @@ import { gql, useQuery } from '@apollo/client';
 import ListCharacters from '../../components/ListCharacters';
 
 const GET_CHARACTERS = gql`
-  query Characters {
-    characters {
+  query Characters($page: Int!) {
+    characters(page: $page) {
       results {
         id
         name
@@ -12,20 +12,18 @@ const GET_CHARACTERS = gql`
         status
         image
       }
+      info {
+        pages
+      }
     }
   }
 `;
 
-interface Character {
-  id: string;
-  name: string;
-  status: string;
-  gender: string;
-  image: string;
-}
-
 const Characters: React.FC = () => {
-  const { loading, error, data } = useQuery(GET_CHARACTERS);
+  const [page, setPage] = React.useState(1);
+  const { loading, error, data } = useQuery(GET_CHARACTERS, {
+    variables: { page },
+  });
 
   if (loading) {
     return <div>Loading...</div>;
@@ -34,10 +32,13 @@ const Characters: React.FC = () => {
   if (error) {
     return <div>Error!</div>;
   }
-
-  const characters = data.characters.results as Character[];
-
-  return <ListCharacters characters={characters} />;
+  return (
+    <ListCharacters
+      characters={data.characters.results}
+      pages={data.characters.info.pages}
+      setPage={setPage}
+    />
+  );
 };
 
 export default Characters;
