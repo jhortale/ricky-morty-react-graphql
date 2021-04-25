@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import { Divider, List, PageHeader, Descriptions } from 'antd';
+
 import { Character } from '../ListCharacters';
 
 interface CharacterProfile extends Character {
@@ -18,30 +20,34 @@ interface Props {
 }
 
 const CharacterProfile: React.FC<Props> = ({ character }) => {
+  const history = useHistory();
   return (
-    <div>
-      <div>
-        <Link to="/">back</Link>
-      </div>
-      <h1>{character.name}</h1>
-      <p>Status: {character.status}</p>
-      <p>
-        Episodes:
-        <ul>
-          {character.episode.map(episode => (
-            <li key={episode.id}>
-              <Link to={`/episodes/${episode.id}`}>{episode.name}</Link>
-            </li>
-          ))}
-        </ul>
-      </p>
-      <p>
-        Location:
-        <Link to={`/location/${character.location.id}`}>
-          {character.location.name}
-        </Link>
-      </p>
-    </div>
+    <>
+      <PageHeader
+        title={`Character: ${character.name}`}
+        onBack={() => history.goBack()}
+      />
+      <Descriptions bordered size="small" layout="vertical">
+        <Descriptions.Item label="Status">{character.status}</Descriptions.Item>
+        <Descriptions.Item label="Location">
+          <Link to={`/location/${character.location.id}`}>
+            {character.location.name}
+          </Link>
+        </Descriptions.Item>
+      </Descriptions>
+      <Divider />
+      <List
+        style={{ padding: '15px' }}
+        size="small"
+        dataSource={character.episode}
+        header={<strong>Episodes</strong>}
+        renderItem={item => (
+          <List.Item>
+            <Link to={`/episodes/${item.id}`}>{item.name}</Link>
+          </List.Item>
+        )}
+      />
+    </>
   );
 };
 
