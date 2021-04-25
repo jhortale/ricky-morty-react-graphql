@@ -12,7 +12,7 @@ const App: React.FC = () => {
     <Router>
       <ApolloProvider client={client}>
         <Route exact path="/" component={Characters} />
-        <Route exact path="/:id" component={Character} />
+        <Route exact path="/character/:id" component={Character} />
         <Route exact path="/location/:id" component={Location} />
       </ApolloProvider>
     </Router>

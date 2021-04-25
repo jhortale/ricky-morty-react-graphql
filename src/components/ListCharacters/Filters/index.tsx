@@ -30,6 +30,7 @@ const Filters: React.FC<Props> = ({
         Gender:
         {genderList.map(value => (
           <span
+            key={value}
             style={{ fontWeight: genderFilter === value ? 'bold' : 'normal' }}
             onKeyDown={() => toggleGenderFilters(value)}
             onClick={() => toggleGenderFilters(value)}
@@ -42,6 +43,7 @@ const Filters: React.FC<Props> = ({
         Status:
         {statusList.map(value => (
           <span
+            key={value}
             style={{ fontWeight: statusFilter === value ? 'bold' : 'normal' }}
             onKeyDown={() => toggleStatusFilters(value)}
             onClick={() => toggleStatusFilters(value)}
