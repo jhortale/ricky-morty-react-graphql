@@ -1,32 +1,32 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-interface Location {
+interface Episode {
   id: number;
   name: string;
-  residents: {
+  characters: {
     id: number;
     name: string;
   }[];
 }
 
 interface Props {
-  location: Location;
+  episode: Episode;
 }
 
-const LocationContainer: React.FC<Props> = ({ location }) => {
+const LocationContainer: React.FC<Props> = ({ episode }) => {
   return (
     <div>
       <div>
         <Link to="/">back</Link>
       </div>
-      <h1>{location.name}</h1>
+      <h1>{episode.name}</h1>
       <p>
         Residents:
         <ul>
-          {location.residents.map(resident => (
-            <li key={resident.id}>
-              <Link to={`/${resident.id}`}>{resident.name}</Link>
+          {episode.characters.map(character => (
+            <li key={character.id}>
+              <Link to={`/${character.id}`}>{character.name}</Link>
             </li>
           ))}
         </ul>
