@@ -1,6 +1,6 @@
 # Docker compose
 ```
-docker-compose up -d --build
+docker-compose up -d
 ```
 
 # Getting Started with Create React App
