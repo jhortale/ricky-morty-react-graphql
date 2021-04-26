@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { List, Avatar, Pagination, PageHeader } from 'antd';
+import { List, Avatar, Pagination, PageHeader, Input } from 'antd';
 import { Link } from 'react-router-dom';
+import Search from 'antd/lib/input/Search';
 import Filters from './Filters';
 
 export interface Character {
@@ -20,6 +21,8 @@ interface Props {
   toggleGenderFilters(status: string): void;
   statusFilter: string;
   toggleStatusFilters(status: string): void;
+  name: string;
+  setName(name: string): void;
 }
 
 const ListCharacters: React.FC<Props> = ({
@@ -28,10 +31,18 @@ const ListCharacters: React.FC<Props> = ({
   toggleGenderFilters,
   statusFilter,
   toggleStatusFilters,
+  name,
+  setName,
   pages,
   page,
   setPage,
 }) => {
+  const inputRef = React.useRef<Input | null>(null);
+  React.useEffect(() => {
+    if (name && inputRef.current) {
+      inputRef.current.input.value = name;
+    }
+  }, [name]);
   return (
     <>
       <PageHeader className="site-page-header" title="Characters" />
@@ -40,6 +51,12 @@ const ListCharacters: React.FC<Props> = ({
         statusFilter={statusFilter}
         toggleGenderFilters={toggleGenderFilters}
         toggleStatusFilters={toggleStatusFilters}
+      />
+      <Search
+        ref={inputRef}
+        placeholder="search by character name"
+        onSearch={setName}
+        style={{ width: 200 }}
       />
       <List
         itemLayout="horizontal"
