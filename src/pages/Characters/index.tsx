@@ -3,8 +3,16 @@ import { gql, useQuery } from '@apollo/client';
 import ListCharacters from '../../components/ListCharacters';
 
 const GET_CHARACTERS = gql`
-  query Characters($gender: String!, $status: String!, $page: Int!) {
-    characters(filter: { status: $status, gender: $gender }, page: $page) {
+  query Characters(
+    $gender: String!
+    $status: String!
+    $name: String!
+    $page: Int!
+  ) {
+    characters(
+      filter: { status: $status, gender: $gender, name: $name }
+      page: $page
+    ) {
       results {
         id
         name
@@ -22,9 +30,10 @@ const GET_CHARACTERS = gql`
 const Characters: React.FC = () => {
   const [gender, setGender] = React.useState<string>('');
   const [status, setStatus] = React.useState<string>('');
+  const [name, setName] = React.useState<string>('');
   const [page, setPage] = React.useState(1);
   const { loading, error, data } = useQuery(GET_CHARACTERS, {
-    variables: { page, gender, status },
+    variables: { page, gender, status, name },
   });
 
   if (loading) {
@@ -52,6 +61,8 @@ const Characters: React.FC = () => {
       toggleStatusFilters={toggleStatusFilters}
       genderFilter={gender}
       statusFilter={status}
+      name={name}
+      setName={setName}
     />
   );
 };
